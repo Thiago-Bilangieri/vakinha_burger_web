@@ -30,10 +30,15 @@ class PaymentTypeItem extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/icons/payment_${paymentTypeModel.acronym}_icon.png',
-              errorBuilder: (context, error, stackTrace) => Image.asset(
-                'assets/images/icons/payment_notfound_icon.png',
-                color: colorAll,
-              ),
+              errorBuilder: (context, error, stackTrace) {
+                print('DEU');
+                print(error);
+                print(stackTrace);
+                return Image.asset(
+                  'assets/images/icons/payment_notfound_icon.png',
+                  color: colorAll,
+                );
+              },
               color: colorAll,
             ),
             const SizedBox(
@@ -48,8 +53,8 @@ class PaymentTypeItem extends StatelessWidget {
                   FittedBox(
                     child: Text(
                       'Forma de pagamento',
-                      style:
-                          context.textStyle.textRegular.copyWith(color: colorAll),
+                      style: context.textStyle.textRegular
+                          .copyWith(color: colorAll),
                     ),
                   ),
                   const SizedBox(

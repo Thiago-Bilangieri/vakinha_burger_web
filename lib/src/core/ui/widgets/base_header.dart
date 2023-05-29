@@ -32,7 +32,7 @@ class BaseHeader extends StatelessWidget {
               replacement: filterWidget ?? const SizedBox.shrink(),
               child: SizedBox(
                 width: constrains.maxWidth * .15,
-                child: TextFormField(
+                child: TextFormField(enableInteractiveSelection: false,
                   onChanged: searchChange,
                   decoration: InputDecoration(
                     isDense: true,
