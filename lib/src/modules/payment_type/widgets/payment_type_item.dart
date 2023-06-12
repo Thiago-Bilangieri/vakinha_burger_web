@@ -31,9 +31,6 @@ class PaymentTypeItem extends StatelessWidget {
             Image.asset(
               'assets/images/icons/payment_${paymentTypeModel.acronym}_icon.png',
               errorBuilder: (context, error, stackTrace) {
-                print('DEU');
-                print(error);
-                print(stackTrace);
                 return Image.asset(
                   'assets/images/icons/payment_notfound_icon.png',
                   color: colorAll,

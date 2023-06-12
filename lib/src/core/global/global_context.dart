@@ -1,10 +1,10 @@
-import 'dart:html';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../storage/session_storage.dart';
+import '../storage/storage.dart';
+
 
 class GlobalContext {
   late final GlobalKey<NavigatorState> _navigatorKey;
@@ -19,7 +19,7 @@ class GlobalContext {
   set navigatorKey(GlobalKey<NavigatorState> key) => _navigatorKey = key;
 
   void loginExpire() {
-    Modular.get<Storage>().clear();
+    Modular.get<Storage>().clean();
     ScaffoldMessenger.of(_navigatorKey.currentContext!).showSnackBar(
       SnackBar(
         elevation: 0,

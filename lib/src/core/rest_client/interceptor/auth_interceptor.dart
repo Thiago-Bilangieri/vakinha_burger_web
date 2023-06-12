@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:html';
+
 import 'package:dio/dio.dart';
 
 import '../../global/constants.dart';
@@ -19,8 +21,9 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == HttpStatus.unauthorized) {
       GlobalContext.instance.loginExpire();
+      return;
     } else {
       handler.next(err);
     }

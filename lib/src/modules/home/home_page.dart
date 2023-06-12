@@ -14,7 +14,6 @@ class _HomePageState extends State<HomePage> with Loader, Messages {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(
         child: Column(
           children: [
             Padding(
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage> with Loader, Messages {
             )
           ],
         ),
-      ),
+      
     );
   }
 }

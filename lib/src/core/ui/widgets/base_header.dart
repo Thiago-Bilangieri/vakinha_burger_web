@@ -15,7 +15,7 @@ class BaseHeader extends StatelessWidget {
     super.key,
     required this.title,
     this.searchChange,
-    required this.buttomLabel,
+    this.buttomLabel = '',
     this.buttonPressed,
     this.addButon = true,
     this.filterWidget,
@@ -73,7 +73,7 @@ class BaseHeader extends StatelessWidget {
                     icon: const Icon(Icons.add),
                     label: context.screenWidth > 690
                         ? FittedBox(child: Text(buttomLabel))
-                        : Text(''),
+                        : const Text(''),
                   ),
                 ),
               ),

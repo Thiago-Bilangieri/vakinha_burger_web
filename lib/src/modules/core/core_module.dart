@@ -7,6 +7,8 @@ import '../../repositories/payment_type/payment_type_repository.dart';
 import '../../repositories/payment_type/payment_type_repository_impl.dart';
 import '../../repositories/products/product_repository.dart';
 import '../../repositories/products/product_repository_impl.dart';
+import '../../repositories/user/user_repository.dart';
+import '../../repositories/user/user_repository_impl.dart';
 
 class CoreModule extends Module {
   @override
@@ -20,6 +22,14 @@ class CoreModule extends Module {
           export: true,
         ),
         Bind.lazySingleton<ProductRepository>(
-            (i) => ProductRepositoryImpl(i()),export: true),
+          (i) => ProductRepositoryImpl(i()),
+          export: true,
+        ),
+        Bind.lazySingleton<UserRepository>(
+          (i) => UserRepositoryImpl(
+            i(),
+          ),
+          export: true,
+        )
       ];
 }

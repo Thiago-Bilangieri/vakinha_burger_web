@@ -33,6 +33,9 @@ abstract class ProductDetailControllerBase with Store {
   @readonly
   String? _imagePath;
 
+  @readonly
+  ProductModel? _productModel;
+
   ProductDetailControllerBase(this._productRepository);
 
   @action
@@ -42,14 +45,16 @@ abstract class ProductDetailControllerBase with Store {
     _status = ProductDetailStateStatus.uploaded;
   }
 
+  @action
   Future<void> save(String name, double price, String description) async {
     try {
       _status = ProductDetailStateStatus.loading;
       final productModel = ProductModel(
+        id: _productModel?.id,
         name: name,
         description: description,
         price: price,
-        enabled: true,
+        enabled: _productModel?.enabled ?? true,
         image: _imagePath!,
       );
 
@@ -59,6 +64,42 @@ abstract class ProductDetailControllerBase with Store {
       log('Erro ao salvar o produto', error: e, stackTrace: s);
       _status = ProductDetailStateStatus.error;
       _errorMessage = 'Erro ao salvar o produto';
+    }
+  }
+
+  @action
+  Future<void> loadProduct(int? id) async {
+    try {
+      _status = ProductDetailStateStatus.loading;
+      _productModel = null;
+      _imagePath = null;
+      if (id != null) {
+        _productModel = await _productRepository.getProduct(id);
+        _imagePath = _productModel!.image;
+      }
+      _status = ProductDetailStateStatus.loaded;
+    } catch (e, s) {
+      log('Erro ao carregar produto', error: e, stackTrace: s);
+      _status = ProductDetailStateStatus.errorLoadProduct;
+    }
+  }
+
+  Future<void>deleteProduct() async{
+    try {
+      _status = ProductDetailStateStatus.loading;
+      
+      if (_productModel != null && _productModel!.id != null) {
+        _productRepository.deleteProduct(_productModel!.id!);
+      _status = ProductDetailStateStatus.deleted;
+      }
+      await Future.delayed(Duration.zero);
+      _status = ProductDetailStateStatus.error;
+      _errorMessage='Produto nao cadastrado, não foi possivel deletar!';
+      
+    } catch (e, s) {
+      log('Erro ao Deletar produto', error: e, stackTrace: s);
+      _status = ProductDetailStateStatus.errorLoadProduct;
+      _errorMessage='Produto nao cadastrado, não foi possivel deletar!';
     }
   }
 }
